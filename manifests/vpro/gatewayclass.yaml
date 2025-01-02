@@ -1,0 +1,12 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: GatewayClass
+metadata:
+  name: contour
+spec:
+  controllerName: projectcontour.io/gateway-controller
+
+
+# First, deploy the gateway provisioner, contour
+# kubectl apply -f https://projectcontour.io/quickstart/contour-gateway-provisioner.yaml
+
+# kubectl delete -f https://projectcontour.io/quickstart/contour-gateway-provisioner.yaml
