@@ -5,6 +5,7 @@ metadata:
 spec:
   parentRefs:
     - name: vpro-gateway
+      namespace: projectcontour
   hostnames:
     - "vprofile.thetyagi.com"
   rules:
