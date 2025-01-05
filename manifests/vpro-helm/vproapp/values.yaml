@@ -10,6 +10,14 @@ image:
 service:
   type: ClusterIP
   port: 8080
+httproute:
+  gatewayName: vpro-gateway
+  gatewayNameSpace: projectcontour
+  hostnames:
+    - vprofile.thetyagi.com
+  rules:
+    pathType: PathPrefix
+    pathValue: /
 initContainers:
   - name: init-mydb
     image: busybox:latest

@@ -5,15 +5,17 @@ metadata:
   namespace: {{ .Values.nameSpace }}
 spec:
   parentRefs:
-    - name: vpro-gateway
-      namespace: projectcontour
+    - name: {{ .Values.httproute.gatewayName }}
+      namespace: {{ .Values.httproute.gatewayNameSpace }}
+  {{- with .Values.httproute.hostnames }}
   hostnames:
-    - "vprofile.thetyagi.com"
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
   rules:
     - matches:
         - path:
-            type: PathPrefix
-            value: /
+            type: {{ .Values.httproute.rules.pathType }}
+            value: {{ .Values.httproute.rules.pathValue }}
       backendRefs:
         - name: {{ .Values.appName }}
           port: {{ .Values.service.port }}
