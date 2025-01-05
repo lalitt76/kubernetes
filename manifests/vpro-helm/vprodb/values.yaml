@@ -1,0 +1,46 @@
+# Default values for vprodb.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# Microservice Name
+appName: vprodb
+nameSpace: astrix
+replicaCount: 1
+
+image:
+  repository: lalitt76/vprofile-db
+  pullPolicy: IfNotPresent
+  tag: v1
+
+service:
+  type: ClusterIP
+  port: 3306
+
+secret:
+  key: dbpass
+  value: dnByb2RicGFzcw==
+
+pvcVolume:
+  name: db-pv-claim
+  accessModes: ReadWriteOnce
+  storageSize: 3Gi
+  storageClassName: default
+
+# Additional volumeMounts on the output Deployment definition.
+volumeMounts:
+  - name: vpro-db-data
+    mountPath: /var/lib/mysql
+
+# Additional volumes on the output Deployment definition.
+volumes:
+  - name: vpro-db-data
+    persistentVolumeClaim:
+      claimName: db-pv-claim
+
+initContainers:
+  - name: busybox
+    image: busybox:latest
+    args: ["rm", "-rf", "/var/lib/mysql/lost+found"]
+    volumeMounts:
+      - name: vpro-db-data
+        mountPath: /var/lib/mysql
