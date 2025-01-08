@@ -1,0 +1,18 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: promo-route
+  namespace: monitoring
+spec:
+  parentRefs:
+    - name: vpro-gateway
+  hostnames:
+    - "promo.thetyagi.com"
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: prometheus-operated
+          port: 9090

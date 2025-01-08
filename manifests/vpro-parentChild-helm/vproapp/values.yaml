@@ -23,10 +23,10 @@ initContainers:
   - name: init-mydb
     image: busybox:latest
     command: ['sh', '-c', 'until nslookup vprodb.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for mydb; sleep 2; done;']
-  - name: init-memcache
+  - name: init-rabbitmq
     image: busybox:latest
     command: ['sh', '-c', 'until nslookup vprormq.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for vprormq; sleep 2; done;']
-  - name: init-rabbitmq
+  - name: init-memcache
     image: busybox:latest
     command: ['sh', '-c', 'until nslookup vpromc.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for vprormq; sleep 2; done;']
 
