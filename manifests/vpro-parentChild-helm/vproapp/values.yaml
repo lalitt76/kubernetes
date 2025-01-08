@@ -1,6 +1,6 @@
 # Variables for parent chart
 appName: vproapp
-replicaCount: 1
+replicaCount: 2
 nameSpace: astrix
 image:
   repository: lalitt76/vprofile-app
