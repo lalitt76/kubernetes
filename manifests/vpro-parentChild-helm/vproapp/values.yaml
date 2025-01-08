@@ -1,0 +1,105 @@
+appName: vproapp
+replicaCount: 1
+nameSpace: astrix
+image:
+  repository: lalitt76/vprofile-app
+  # This sets the pull policy for images.
+  pullPolicy: Always
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: v1
+service:
+  type: ClusterIP
+  port: 8080
+httproute:
+  gatewayName: vpro-gateway
+  gatewayNameSpace: projectcontour
+  hostnames:
+    - vprofile.thetyagi.com
+  rules:
+    pathType: PathPrefix
+    pathValue: /
+initContainers:
+  - name: init-mydb
+    image: busybox:latest
+    command: ['sh', '-c', 'until nslookup vprodb.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for mydb; sleep 2; done;']
+  - name: init-memcache
+    image: busybox:latest
+    command: ['sh', '-c', 'until nslookup vprormq.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for vprormq; sleep 2; done;']
+  - name: init-rabbitmq
+    image: busybox:latest
+    command: ['sh', '-c', 'until nslookup vpromc.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for vprormq; sleep 2; done;']
+
+vprodb:
+  appName: vprodb
+  nameSpace: astrix
+  replicaCount: 1
+
+  image:
+    repository: lalitt76/vprofile-db
+    pullPolicy: IfNotPresent
+    tag: v1
+
+  service:
+    type: ClusterIP
+    port: 3306
+
+  secret:
+    key: dbpass
+    value: dnByb2RicGFzcw==
+
+  pvcVolume:
+    name: db-pv-claim
+    accessModes: ReadWriteOnce
+    storageSize: 3Gi
+    storageClassName: default
+
+  # Additional volumeMounts on the output Deployment definition.
+  volumeMounts:
+    - name: vpro-db-data
+      mountPath: /var/lib/mysql
+
+  # Additional volumes on the output Deployment definition.
+  volumes:
+    - name: vpro-db-data
+      persistentVolumeClaim:
+        claimName: db-pv-claim
+
+  initContainers:
+    - name: busybox
+      image: busybox:latest
+      args: ["rm", "-rf", "/var/lib/mysql/lost+found"]
+      volumeMounts:
+        - name: vpro-db-data
+          mountPath: /var/lib/mysql
+
+vpromc:
+  appName: vpromc
+  nameSpace: astrix
+  replicaCount: 1
+
+  service:
+    type: ClusterIP
+    port: 11211
+
+  image:
+    repository: memcached
+    pullPolicy: IfNotPresent
+    tag: latest
+
+vprormq:
+  appName: vprormq
+  nameSpace: astrix
+  replicaCount: 1
+
+  service:
+    type: ClusterIP
+    port: 15672
+
+  image:
+    repository: rabbitmq
+    pullPolicy: IfNotPresent
+    tag: latest
+
+  secret:
+    key: rmqpass
+    value: Z3Vlc3Q=
