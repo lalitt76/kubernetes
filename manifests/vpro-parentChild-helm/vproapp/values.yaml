@@ -1,3 +1,4 @@
+# Variables for parent chart
 appName: vproapp
 replicaCount: 1
 nameSpace: astrix
@@ -29,6 +30,7 @@ initContainers:
     image: busybox:latest
     command: ['sh', '-c', 'until nslookup vpromc.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for vprormq; sleep 2; done;']
 
+# Variables for child vprodb chart
 vprodb:
   appName: vprodb
   nameSpace: astrix
@@ -72,6 +74,7 @@ vprodb:
         - name: vpro-db-data
           mountPath: /var/lib/mysql
 
+# Variables for child vpromc chart
 vpromc:
   appName: vpromc
   nameSpace: astrix
@@ -86,6 +89,7 @@ vpromc:
     pullPolicy: IfNotPresent
     tag: latest
 
+# Variables for child vprormq chart
 vprormq:
   appName: vprormq
   nameSpace: astrix
