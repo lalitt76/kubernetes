@@ -5,17 +5,17 @@ metadata:
   namespace: {{ .Values.nameSpace }}
 spec:
   parentRefs:
-    - name: {{ .Values.httproute.gatewayName }}
-      namespace: {{ .Values.httproute.gatewayNameSpace }}
-  {{- with .Values.httproute.hostnames }}
+    - name: {{ .Values.httpRoute.gatewayName }}
+      namespace: {{ .Values.httpRoute.gatewayNameSpace }}
+  {{- with .Values.httpRoute.hostNames }}
   hostnames:
     {{- toYaml . | nindent 4 }}
   {{- end }}
   rules:
     - matches:
         - path:
-            type: {{ .Values.httproute.rules.pathType }}
-            value: {{ .Values.httproute.rules.pathValue }}
+            type: {{ .Values.httpRoute.rules.pathType }}
+            value: {{ .Values.httpRoute.rules.pathValue }}
       backendRefs:
         - name: {{ .Values.appName }}
           port: {{ .Values.service.port }}

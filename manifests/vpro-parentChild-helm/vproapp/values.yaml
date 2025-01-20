@@ -11,10 +11,10 @@ image:
 service:
   type: ClusterIP
   port: 8080
-httproute:
+httpRoute:
   gatewayName: vpro-gateway
   gatewayNameSpace: projectcontour
-  hostnames:
+  hostNames:
     - vprofile.thetyagi.com
   rules:
     pathType: PathPrefix
@@ -70,9 +70,9 @@ vprodb:
     - name: busybox
       image: busybox:latest
       args: ["rm", "-rf", "/var/lib/mysql/lost+found"]
-      volumeMounts:
-        - name: vpro-db-data
-          mountPath: /var/lib/mysql
+#      volumeMounts:
+#        - name: vpro-db-data
+#          mountPath: /var/lib/mysql
 
 # Variables for child vpromc chart
 vpromc:
