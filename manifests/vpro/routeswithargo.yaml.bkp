@@ -6,6 +6,7 @@ metadata:
 spec:
   parentRefs:
     - name: vpro-gateway
+      namespace: projectcontour
   hostnames:
     - "argocd.thetyagi.com"
   rules:
