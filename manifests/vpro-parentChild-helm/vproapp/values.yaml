@@ -11,9 +11,20 @@ image:
 service:
   type: ClusterIP
   port: 8080
+
+gateway:
+  class: contour
+  name: vpro-gateway
+  nameSpace: projectcontour
+  controllerName: projectcontour.io/gateway-controller
+  listeners:
+    name1: http
+    protocol1: HTTP
+    port1: 80
+    allowedRoutes:
+      from: All
+
 httpRoute:
-  gatewayName: vpro-gateway
-  gatewayNameSpace: projectcontour
   hostNames:
     - vprofile.thetyagi.com
   rules:

@@ -5,8 +5,8 @@ metadata:
   namespace: {{ .Values.nameSpace }}
 spec:
   parentRefs:
-    - name: {{ .Values.httpRoute.gatewayName }}
-      namespace: {{ .Values.httpRoute.gatewayNameSpace }}
+    - name: {{ .Values.gateway.name }}
+      namespace: {{ .Values.gateway.nameSpace }}
   {{- with .Values.httpRoute.hostNames }}
   hostnames:
     {{- toYaml . | nindent 4 }}
