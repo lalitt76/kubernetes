@@ -12,18 +12,6 @@ service:
   type: ClusterIP
   port: 8080
 
-gateway:
-  class: contour
-  name: vpro-gateway
-  nameSpace: projectcontour
-  controllerName: projectcontour.io/gateway-controller
-  listeners:
-    name1: http
-    protocol1: HTTP
-    port1: 80
-    allowedRoutes:
-      from: All
-
 httpRoute:
   hostNames:
     - vprofile.thetyagi.com
@@ -40,6 +28,19 @@ initContainers:
   - name: init-memcache
     image: busybox:latest
     command: ['sh', '-c', 'until nslookup vpromc.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for vprormq; sleep 2; done;']
+
+# Variables for child gateway chart
+gateway:
+  class: contour
+  name: vpro-gateway
+  nameSpace: projectcontour
+  controllerName: projectcontour.io/gateway-controller
+  listeners:
+    name1: http
+    protocol1: HTTP
+    port1: 80
+    allowedRoutes:
+      from: All
 
 # Variables for child vprodb chart
 vprodb:

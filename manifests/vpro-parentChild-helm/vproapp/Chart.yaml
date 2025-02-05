@@ -1,21 +1,26 @@
 apiVersion: v2
-name: vproapp
+name: vproapp # This will install fifth
 description: A Helm chart for Kubernetes
 type: application
 version: 0.1.0
 appVersion: "1.0.0"
 dependencies:
-  - name: vprodb
-    version: 0.2.0
-    repository: "file://./charts/vprodb"
+  - name: gateway # This will install first
+    version: 0.1.0
+    repository: "file://./charts/gateway"
     enabled: true
-  - name: vpromc
+  - name: vpromc # This will install second
     version: 0.1.0
     repository: "file://./charts/vpromc"
     enabled: true
-  - name: vprormq
+  - name: vprormq # This will install third
     version: 0.1.0
     repository: "file://./charts/vprormq"
     enabled: true
+  - name: vprodb # This will install forth
+    version: 0.2.0
+    repository: "file://./charts/vprodb"
+    enabled: true
+
 
 
