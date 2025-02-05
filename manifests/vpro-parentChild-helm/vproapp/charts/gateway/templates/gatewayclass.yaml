@@ -1,6 +1,6 @@
 apiVersion: gateway.networking.k8s.io/v1
 kind: GatewayClass
 metadata:
-  name: {{ .Values.gateway.class }}
+  name: {{ .Values.class }}
 spec:
-  controllerName: {{ .Values.gateway.controllerName }}
+  controllerName: {{ .Values.controllerName }}
