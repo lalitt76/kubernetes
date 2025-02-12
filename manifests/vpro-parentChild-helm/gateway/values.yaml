@@ -2,28 +2,6 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 # Variables for child gateway chart
-gateway:
-  class: contour
-  name: vpro-gateway
-  nameSpace: projectcontour
-  certificate:
-    name: gateway-cert
-    secName: gateway-cert-sec
-    duration: 120m
-    renewBefore: 119m
-    org1: thetyagi.com
-    cName: vprofile.thetyagi.com
-  controllerName: projectcontour.io/gateway-controller
-  listeners:
-    name1: http
-    protocol1: HTTP
-    port1: 80
-    name2: https
-    protocol2: HTTPS
-    port2: 443
-    allowedRoutes:
-      from: All
-
 sslcertificate:
   clsIssuer:
     name: cls-ca-issuer
@@ -34,3 +12,25 @@ sslcertificate:
       crt: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURFVENDQWZtZ0F3SUJBZ0lVYldKWlcza1MweVk5SFRiUzhhY0o3UERHWU9Nd0RRWUpLb1pJaHZjTkFRRUwKQlFBd0Z6RVZNQk1HQTFVRUF3d01kR2hsZEhsaFoya3VZMjl0TUNBWERUSTFNREl3TlRBeE5EZ3lOMW9ZRHpNdwpNalF3TmpBNE1ERTBPREkzV2pBWE1SVXdFd1lEVlFRRERBeDBhR1YwZVdGbmFTNWpiMjB3Z2dFaU1BMEdDU3FHClNJYjNEUUVCQVFVQUE0SUJEd0F3Z2dFS0FvSUJBUUM2NGVuVDVJaUQ3ODFHSDZlWUJNOVJUaWh6SVN1YjB3ZSsKRzAxd3BKTWMvYnB4QlExZ3BZa2Y4dG5ZSXJYRDFoQUN1cHd0MXBmeEc2eVQ5MGsvOEJ1RkRlb3ZrVnhHQUltTQp1d1oxdlNMWCtDbm9tYjlLNGk2RHdkRk12aCtrWGtZdUtOS2xWR04yc0cza1lhWFk2ekFCSXlxeVNyN3Q0bU5BClB3SE95bWcrRWxxUXhnSUk0QlY1MnpWSURFcjBneDVOeHBPSGY4T0tCQkcvRC8vUSttZXRVMTl5SXZJdldEZVoKQWxZUDJqQzAvNEtiZjE1eDBvaytxN2w0d2hnMEFvOHo1SVlzalN3YVY3bjJFNlJUU2RtLytEUGZLUWd4MktuSAp6b3d2UDdzN3p2cXhZWUZBNGRJWS9qU01oZkhIKzJFTVZTMFBTdHpZMlpIeko4ZXQ0L1p6QWdNQkFBR2pVekJSCk1CMEdBMVVkRGdRV0JCUm1WcWZFNndvTnZXYTNoQXpQZ2dVWFlIZXFtakFmQmdOVkhTTUVHREFXZ0JSbVZxZkUKNndvTnZXYTNoQXpQZ2dVWFlIZXFtakFQQmdOVkhSTUJBZjhFQlRBREFRSC9NQTBHQ1NxR1NJYjNEUUVCQ3dVQQpBNElCQVFBZDFaOExJUVp2TTRaK251Nk03bnF2djgvcHdhSHF0clZ6ZXlCbUFQM2k5RC9aOThVZDlEblI5c0VnClM5QS9obU9DU0RYOUk5ZWdaakdLa3lKV25jWDNGOERhU3ArZ2VXN0pXb0FCRS9OUHp2OHV0ekVLZjVseC9kbmoKUE45Q2g3QkFXVlNVcWd3YVpxS3J4QjdBd2RnTlNFanh3M3NlbFJ2YTZJKzl0elIvVkp5cjJ6R1A5cWNyZVJobwpYY0pSZUQ5RlFKRmRYaDJUVXVkRHIxMEk5UVU0cXdvWHRZU005dU1rVnlUUnNFREhtbzNXRDNOc3pLTG9ZemhWCnVXNFpFUm9pTDVqZUxkVWZjMnJQRlBQalJEOXVNZTByejdyc1pNcFRwWDB4cUgzY3R1TTVxdWFDMkE2V0hWSEkKcTdnem44L2x3MlR1K0llUTYvZzdSd1dBU21XNAotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
       namespace: cert-manager
       mode: Terminate
+
+  gateway:
+    class: contour
+    name: vpro-gateway
+    nameSpace: projectcontour
+    certificate:
+      name: gateway-cert
+      secName: gateway-cert-sec
+      duration: 120m
+      renewBefore: 119m
+      org1: thetyagi.com
+      cName: vprofile.thetyagi.com
+    controllerName: projectcontour.io/gateway-controller
+    listeners:
+      name1: http
+      protocol1: HTTP
+      port1: 80
+      name2: https
+      protocol2: HTTPS
+      port2: 443
+      allowedRoutes:
+        from: All

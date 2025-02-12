@@ -1,25 +1,25 @@
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
-  name: {{ .Values.gateway.name }}
-  namespace: {{ .Values.gateway.nameSpace }}
+  name: {{ .Values.sslcertificate.gateway.name }}
+  namespace: {{ .Values.sslcertificate.gateway.nameSpace }}
 spec:
-  gatewayClassName: {{ .Values.gateway.class }}
+  gatewayClassName: {{ .Values.sslcertificate.gateway.class }}
   listeners:
-    - name: {{ .Values.gateway.listeners.name1 }}
-      protocol: {{ .Values.gateway.listeners.protocol1 }}
-      port: {{ .Values.gateway.listeners.port1 }}
+    - name: {{ .Values.sslcertificate.gateway.listeners.name1 }}
+      protocol: {{ .Values.sslcertificate.gateway.listeners.protocol1 }}
+      port: {{ .Values.sslcertificate.gateway.listeners.port1 }}
       allowedRoutes:
         namespaces:
-          from: {{ .Values.gateway.listeners.allowedRoutes.from }}
-    - name: {{ .Values.gateway.listeners.name2 }}
-      protocol: {{ .Values.gateway.listeners.protocol2 }}
-      port: {{ .Values.gateway.listeners.port2 }}
+          from: {{ .Values.sslcertificate.gateway.listeners.allowedRoutes.from }}
+    - name: {{ .Values.sslcertificate.gateway.listeners.name2 }}
+      protocol: {{ .Values.sslcertificate.gateway.listeners.protocol2 }}
+      port: {{ .Values.sslcertificate.gateway.listeners.port2 }}
       tls:
         certificateRefs:
           - kind: Secret
-            name: {{ .Values.gateway.certificate.secName }}
-        mode: {{ .Values.clsIssuer.tls.mode }}
+            name: {{ .Values.sslcertificate.gateway.certificate.secName }}
+        mode: {{ .Values.sslcertificate.clsIssuer.tls.mode }}
       allowedRoutes:
         namespaces:
-          from: {{ .Values.gateway.listeners.allowedRoutes.from }}
+          from: {{ .Values.sslcertificate.gateway.listeners.allowedRoutes.from }}
