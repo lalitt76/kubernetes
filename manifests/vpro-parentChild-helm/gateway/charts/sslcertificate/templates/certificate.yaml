@@ -12,6 +12,6 @@ spec:
       - {{ .Values.gateway.certificate.org1 }}
   commonName: {{ .Values.gateway.certificate.cName }}
   issuerRef:
-    name: {{ .Values.clsIssuer.name }}
+    name: {{ .Values.sslcertificate.clsIssuer.name }}
     kind: ClusterIssuer
     group: cert-manager.io
