@@ -12,3 +12,14 @@ spec:
       allowedRoutes:
         namespaces:
           from: {{ .Values.gateway.listeners.allowedRoutes.from }}
+    - name: {{ .Values.gateway.listeners.name2 }}
+      protocol: {{ .Values.gateway.listeners.protocol2 }}
+      port: {{ .Values.gateway.listeners.port2 }}
+      tls:
+        certificateRefs:
+          - kind: Secret
+            name: {{ .Values.gateway.certificate.secName }}
+        mode: {{ .Values.clsIssuer.tls.mode }}
+      allowedRoutes:
+        namespaces:
+          from: {{ .Values.gateway.listeners.allowedRoutes.from }}
