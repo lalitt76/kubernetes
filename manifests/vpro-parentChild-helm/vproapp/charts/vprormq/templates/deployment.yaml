@@ -28,6 +28,10 @@ spec:
                   name: {{ .Values.appName }}-sec
                   key: {{ .Values.secret.key }}
             - name: RABBITMQ_DEFAULT_USER
-              value: "guest"
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Values.appName }}-cnfmap
+                  key: {{ .Values.configMap.key }}
+
 
 

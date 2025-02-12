@@ -1,0 +1,15 @@
+# Default values for vprormq.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+# Variables for child gateway chart
+gateway:
+  class: contour
+  name: vpro-gateway
+  nameSpace: projectcontour
+  controllerName: projectcontour.io/gateway-controller
+  listeners:
+    name1: http
+    protocol1: HTTP
+    port1: 80
+    allowedRoutes:
+      from: All
